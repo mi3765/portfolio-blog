@@ -1,8 +1,9 @@
-import { PostType } from "@/types";
+import { PostType, PortfolioType } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "./components/Header";
-
+import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
 async function fetchAllBlogs() {
 	const res = await fetch("http://localhost:3000/api/blog", {
 		// 更新が頻繁に行われるのでSSR
@@ -14,56 +15,149 @@ async function fetchAllBlogs() {
 	return data.posts;
 }
 
+async function fetchAllPortfolios() {
+	const res = await fetch("http://localhost:3000/api/portfolio", {
+		// 更新が頻繁に行われるのでSSR
+		// SSGなら "force-cache"
+		cache: "no-store",
+	});
+
+	const data = await res.json();
+	return data.portfolios;
+}
+
 export default async function Home() {
 	const posts = await fetchAllBlogs();
+	const portfolios = await fetchAllPortfolios();
 	return (
 		<>
 			<Header />
-			<main className="w-full h-full bg-orange-100 py-10">
-				<div className="md:w-2/4 sm:w-3/4 m-auto p-4 rounded-lg bg-white ">
-					<h1 className="text-orange-500 text-center text-2xl font-extrabold">
-						Full Stack Blog
-					</h1>
-				</div>
-				{/* Link */}
-				<div className="flex my-5">
-					<Link
-						href={"/blog/add"}
-						className="text-orange-500 md:w-1/6 sm:w-2/4 text-center rounded-md p-2 m-auto bg-white hover:bg-orange-500 hover:text-white font-semibold"
+			<main className="h-full bg-orange-100 flex">
+				<div className=" bg-orange-100">
+					<div
+						className="min-h-screen min-w-screen p-4 rounded-lg bg-white flex justify-center items-center"
+						id="profile"
 					>
-						ブログ新規作成
-					</Link>
-				</div>
+						<div className="flex flex-col">
+							<h1 className="text-orange-500 text-8xl font-extrabold mb-5">
+								Ea Mizuno
+								<br />
+							</h1>
+							<p className="text-3xl text-orange-500 font-extrabold">
+								Gihu Kyoritsu University Bachelor 3.
+								<br />I aspire to become a front-end engineer.
+							</p>
+						</div>
+					</div>
 
-				<div className="w-full flex flex-col justify-center items-center">
-					{posts.map((post: PostType) => (
-						<div
-							key={post.id}
-							className="w-3/4 p-4 rounded-md mx-3 my-2 bg-white flex flex-col justify-center"
-						>
-							<div className="flex items-center my-3">
-								<Link href={`/blog/${post.id}`} className="mr-auto">
-									<h1 className="mr-auto font-semibold text-2xl hover:text-orange-500">
-										{post.title}
-									</h1>
-								</Link>
-								<Link
-									href={`/blog/edit/${post.id}`}
-									className="px-4 py-1 text-center text-xl bg-orange-500 text-white rounded-md hover:bg-black"
-								>
-									編集
-								</Link>
-							</div>
+					{/* Link */}
 
-							<div className="mr-auto my-1">
-								<blockquote className="font-bold text-slate-700">
-									{/* Date型が割り当てられないためstring型にする */}
-									{new Date(post.date).toDateString()}
-								</blockquote>
+					<div
+						className="min-h-screen min-w-screen flex flex-col justify-center items-center"
+						id="portfolio"
+					>
+						<h1 className="text-4xl font-semibold my-5">Portfolio</h1>
+						<div className="flex items-center justify-center ">
+							<div className="grid grid-cols-1 md:grid-cols2 lg:grid-cols-3 gap-5  mx-5">
+								{portfolios.map((portfolio: PortfolioType) => (
+									<div className="card">
+										<div
+											className="flex flex-col bg-white rounded-xl overflow-hidden"
+											key={portfolio.id}
+										>
+											<div className="">
+												<img
+													src="スクリーンショット 2023-11-19 14.57.46.png"
+													alt=""
+													className="img"
+												/>
+												<div className="p-5">
+													<Link href={`/portfolio/${portfolio.id}`}>
+														<h1 className="my-2 mr-auto font-semibold text-2xl hover:text-orange-500">
+															{portfolio.title}
+														</h1>
+													</Link>
+													<Link
+														href={`/portfolio/edit/${portfolio.id}`}
+														className="px-4 py-1 text-center text-lg bg-orange-500 text-white rounded-md hover:bg-black"
+													>
+														編集
+													</Link>
+													<p className="text-slate-500 text-lg mt-3">
+														{portfolio.overview}
+													</p>
+													<blockquote className="font-bold text-slate-700">
+														{/* Date型が割り当てられないためstring型にする */}
+														{new Date(portfolio.date).toDateString()}
+													</blockquote>
+												</div>
+											</div>
+										</div>
+									</div>
+								))}
 							</div>
 						</div>
-					))}
+						<Link href="/portfolio">
+							<button className="bg-orange-500 text-white rounded-3xl mt-5 mb-10 px-10 py-2 hover:bg-black">
+								View All
+							</button>
+						</Link>
+					</div>
+					<div
+						className="min-h-screen min-w-screen  flex flex-col justify-center items-center"
+						id="blog"
+					>
+						<h1 className="text-4xl font-semibold my-5">Blog</h1>
+						<div className="flex items-center justify-center ">
+							<div className="grid grid-cols-1 md:grid-cols2 lg:grid-cols-3 gap-5 mx-5">
+								{posts.map((post: PostType) => (
+									<div className="card">
+										<div
+											className="flex flex-col bg-white rounded-xl overflow-hidden"
+											key={post.id}
+										>
+											<div className="">
+												<img
+													src="スクリーンショット 2023-11-19 14.57.46.png"
+													alt=""
+													className="img"
+												/>
+												<div className="p-5">
+													<Link href={`/blog/${post.id}`}>
+														<h1 className="my-2 mr-auto font-semibold text-2xl hover:text-orange-500">
+															{post.title}
+														</h1>
+													</Link>
+													<Link
+														href={`/blog/edit/${post.id}`}
+														className="px-4 py-1 text-center text-lg bg-orange-500 text-white rounded-md hover:bg-black"
+													>
+														編集
+													</Link>
+													<p className="text-slate-500 text-lg mt-3">
+														{post.overview}
+													</p>
+													<blockquote className="font-bold text-slate-700">
+														{/* Date型が割り当てられないためstring型にする */}
+														{new Date(post.date).toDateString()}
+													</blockquote>
+												</div>
+											</div>
+										</div>
+									</div>
+								))}
+							</div>
+						</div>
+						<Link href="/blog">
+							<button className="bg-orange-500 text-white rounded-3xl mt-5 mb-10 px-10 py-2 hover:bg-black">
+								View All
+							</button>
+						</Link>
+					</div>
+
+					<Footer />
 				</div>
+				{/* <Sidebar /> */}
 			</main>
 		</>
 	);

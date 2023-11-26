@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import ReactTextareaAutosize from "react-textarea-autosize";
 
-const editBlog = async (
+const editPortfolio = async (
 	// undefinedの可能性
 	title: string | undefined,
 	description: string | undefined,
 	overview: string | undefined,
 	id: number
 ) => {
-	const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+	const res = await fetch(`http://localhost:3000/api/portfolio/${id}`, {
 		method: "PUT",
 		// JSONですよという印
 		headers: {
@@ -23,17 +23,17 @@ const editBlog = async (
 	return res.json();
 };
 
-const getBlogById = async (id: number) => {
-	const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+const getPortfolioById = async (id: number) => {
+	const res = await fetch(`http://localhost:3000/api/portfolio/${id}`, {
 		method: "GET",
 	});
 	const data = await res.json();
 	console.log(data);
-	return data.post;
+	return data.portfolio;
 };
 
-const deleteBlog = async (id: number) => {
-	const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+const deletePortfolio = async (id: number) => {
+	const res = await fetch(`http://localhost:3000/api/portfolio/${id}`, {
 		method: "DELETE",
 		// JSONですよという印
 		headers: {
@@ -44,7 +44,7 @@ const deleteBlog = async (id: number) => {
 };
 
 // URLからidを取得
-const EditBlog = ({ params }: { params: { id: number } }) => {
+const EditPortfolio = ({ params }: { params: { id: number } }) => {
 	const router = useRouter();
 	// input
 	const titleRef = useRef<HTMLInputElement | null>(null);
@@ -61,7 +61,7 @@ const EditBlog = ({ params }: { params: { id: number } }) => {
 		// nullの可能性があるので ?
 		// console.log(titleRef.current?.value);
 		// console.log(descriptionRef.current?.value);
-		await editBlog(
+		await editPortfolio(
 			titleRef.current?.value,
 			descriptionRef.current?.value,
 			overviewRef.current?.value,
@@ -77,14 +77,14 @@ const EditBlog = ({ params }: { params: { id: number } }) => {
 
 	const handleDelete = async () => {
 		toast.loading("削除中です", { id: "1" });
-		await deleteBlog(params.id);
+		await deletePortfolio(params.id);
 		toast.success("削除に成功しました", { id: "1" });
 		router.push("/");
 		router.refresh();
 	};
 
 	useEffect(() => {
-		getBlogById(params.id)
+		getPortfolioById(params.id)
 			.then((data) => {
 				// 存在するか確認
 				toast.loading("データを取得中", { id: "1" });
@@ -133,6 +133,7 @@ const EditBlog = ({ params }: { params: { id: number } }) => {
 							onHeightChange={(height) => console.log(height)}
 							className="rounded-md px-4 py-2 w-full my-2"
 						/>
+
 						<button className="px-4 py-2 bg-green-300 rounded-lg m-auto hover:bg-slate-100">
 							更新
 						</button>
@@ -149,4 +150,4 @@ const EditBlog = ({ params }: { params: { id: number } }) => {
 	);
 };
 
-export default EditBlog;
+export default EditPortfolio;

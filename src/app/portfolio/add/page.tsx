@@ -4,12 +4,12 @@ import React, { useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import ReactTextareaAutosize from "react-textarea-autosize";
 
-const postBlog = async (
+const postPortfolio = async (
 	title: string | undefined,
 	description: string | undefined,
 	overview: string | undefined
 ) => {
-	const res = await fetch("http://localhost:3000/api/blog", {
+	const res = await fetch("http://localhost:3000/api/portfolio", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -19,7 +19,7 @@ const postBlog = async (
 	return res.json();
 };
 
-const PostBlog = () => {
+const PostPortfolio = () => {
 	const router = useRouter();
 	const titleRef = useRef<HTMLInputElement | null>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
@@ -29,7 +29,7 @@ const PostBlog = () => {
 		e.preventDefault();
 		toast.loading("投稿中です", { id: "1" });
 
-		await postBlog(
+		await postPortfolio(
 			titleRef.current?.value,
 			descriptionRef.current?.value,
 			overviewRef.current?.value
@@ -90,4 +90,4 @@ const PostBlog = () => {
 	);
 };
 
-export default PostBlog;
+export default PostPortfolio;

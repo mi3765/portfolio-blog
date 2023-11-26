@@ -13,6 +13,24 @@ datasource db {
 model Post {
   id          Int      @id @default(autoincrement())
   title       String
+  overview    String
   description String
   date        DateTime @default(now())
+  tags        Tag[]
+}
+
+model Portfolio {
+  id          Int      @id @default(autoincrement())
+  title       String
+  overview    String
+  description String
+  date        DateTime @default(now())
+  tags        Tag[]
+}
+
+model Tag {
+  id         Int         @id @default(autoincrement())
+  name       String
+  posts      Post[]
+  portfolios Portfolio[]
 }
