@@ -4,6 +4,9 @@ import Link from "next/link";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
+import Loading from "./components/Loading";
+import { Suspense } from "react";
+
 async function fetchAllBlogs() {
 	const res = await fetch("http://localhost:3000/api/blog", {
 		// 更新が頻繁に行われるのでSSR
@@ -30,7 +33,7 @@ export default async function Home() {
 	const posts = await fetchAllBlogs();
 	const portfolios = await fetchAllPortfolios();
 	return (
-		<>
+		<Suspense fallback={<Loading />}>
 			<Header />
 			<main className="h-full bg-orange-100 flex">
 				<div className=" bg-orange-100">
@@ -154,11 +157,10 @@ export default async function Home() {
 							</button>
 						</Link>
 					</div>
-
 					<Footer />
 				</div>
 				{/* <Sidebar /> */}
 			</main>
-		</>
+		</Suspense>
 	);
 }

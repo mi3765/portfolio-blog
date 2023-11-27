@@ -1,13 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useRef } from "react";
+import React, { RefObject, useRef, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import Tag from "@/app/components/Tag";
+import Header from "@/app/components/Header";
+import { TagType } from "@/types";
 
 const postPortfolio = async (
 	title: string | undefined,
 	description: string | undefined,
 	overview: string | undefined
+	// tag: string[]
 ) => {
 	const res = await fetch("http://localhost:3000/api/portfolio", {
 		method: "POST",
@@ -27,6 +31,8 @@ const PostPortfolio = () => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		console.log(e);
+		// console.log(tagRef);
 		toast.loading("投稿中です", { id: "1" });
 
 		await postPortfolio(
@@ -43,11 +49,12 @@ const PostPortfolio = () => {
 	return (
 		<>
 			<Toaster />
-			<div className="w-full flex bg-orange-100 h-[100vh] py-10">
+			<Header />
+			<div className="w-full flex bg-orange-100 h-full py-10">
 				<div className="flex flex-col justify-center items-center mx-auto ">
 					<div className="bg-white rounded-lg my-10">
 						<p className="text-2xl text-orange-500 font-bold p-3">
-							ブログ新規作成
+							ポートフォリオ新規作成
 						</p>
 					</div>
 
@@ -59,15 +66,13 @@ const PostPortfolio = () => {
 							className="rounded-md px-4 w-full py-2 my-2"
 						/>
 						{/* TODO: タグ作る */}
-						<input
-							ref={titleRef}
-							placeholder="タグを入力"
-							type="text"
-							className="rounded-md px-4 w-full py-2 my-2"
-						/>
+						<div className="rounded-md px-4 w-full py-2 my-2 border bg-white">
+							<Tag />
+						</div>
 						{/* AutoResizeTextarea を使ってテキストエリアを実装 */}
 						<ReactTextareaAutosize
 							placeholder="概要を入力"
+							ref={overviewRef}
 							cacheMeasurements
 							minRows={5}
 							onHeightChange={(height) => console.log(height)}
@@ -75,6 +80,7 @@ const PostPortfolio = () => {
 						/>
 						<ReactTextareaAutosize
 							placeholder="本文を入力"
+							ref={descriptionRef}
 							cacheMeasurements
 							minRows={10}
 							onHeightChange={(height) => console.log(height)}

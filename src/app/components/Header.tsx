@@ -13,10 +13,10 @@ const Header = () => {
 				<div className="grow">
 					<div className="hidden sm:flex items-center justify-center gap-2 md:gap-8">
 						<Link href={"/"}>Home</Link>
-						<Link href={"blog"}>Blog</Link>
-						<Link href={"portfolio"}>Portfolio</Link>
-						<Link href={"profile"}>Profile</Link>
-						<Link href={"contact"}>Contact</Link>
+						<Link href={"/blog"}>Blog</Link>
+						<Link href={"/portfolio"}>Portfolio</Link>
+						<Link href={"/profile"}>Profile</Link>
+						<Link href={"/contact"}>Contact</Link>
 					</div>
 				</div>
 				<div className="flex grow items-center justify-end sm:hidden">
@@ -66,25 +66,25 @@ const Header = () => {
 										</Link>
 										<Link
 											className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-											href={"blog"}
+											href={"/blog"}
 										>
 											Blog
 										</Link>
 										<Link
 											className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-											href={"portfolio"}
+											href={"/portfolio"}
 										>
 											Portfolio
 										</Link>
 										<Link
 											className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-											href={"profile"}
+											href={"/profile"}
 										>
 											Profile
 										</Link>
 										<Link
 											className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-											href={"contact"}
+											href={"/contact"}
 										>
 											Contact
 										</Link>
@@ -106,14 +106,14 @@ const Header = () => {
 										New Portfolio
 									</Link>
 									<Link
-										href={"register"}
+										href={"/register"}
 										className="rounded-md bg-white px-4 py-2 text-sm font-medium text-black md:text-xl w-full border-2
 										focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
 									>
 										Sign up
 									</Link>
 									<Link
-										href={"login"}
+										href={"/login"}
 										className="rounded-md bg-white px-4 py-2 text-sm font-medium text-black md:text-xl w-full border-2
 										focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
 									>
@@ -178,10 +178,10 @@ const Header = () => {
 						</Menu>
 					</div>
 
-					<Link href={"register"} className="mr-2 font-bold">
+					<Link href={"/register"} className="mr-2 font-bold">
 						Sign up
 					</Link>
-					<Link href={"login"} className="font-bold">
+					<Link href={"/login"} className="font-bold">
 						Login
 					</Link>
 				</div>

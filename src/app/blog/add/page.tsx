@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import Tag from "@/app/components/Tag";
+import Header from "@/app/components/Header";
 
 const postBlog = async (
 	title: string | undefined,
@@ -43,7 +45,8 @@ const PostBlog = () => {
 	return (
 		<>
 			<Toaster />
-			<div className="w-full flex bg-orange-100 h-[100vh] py-10">
+			<Header />
+			<div className="w-full flex bg-orange-100 h-full py-10">
 				<div className="flex flex-col justify-center items-center mx-auto ">
 					<div className="bg-white rounded-lg my-10">
 						<p className="text-2xl text-orange-500 font-bold p-3">
@@ -59,12 +62,9 @@ const PostBlog = () => {
 							className="rounded-md px-4 w-full py-2 my-2"
 						/>
 						{/* TODO: タグ作る */}
-						<input
-							ref={titleRef}
-							placeholder="タグを入力"
-							type="text"
-							className="rounded-md px-4 w-full py-2 my-2"
-						/>
+						<div className="rounded-md px-4 w-full py-2 my-2 border bg-white">
+							<Tag />
+						</div>
 						{/* AutoResizeTextarea を使ってテキストエリアを実装 */}
 						<ReactTextareaAutosize
 							placeholder="概要を入力"

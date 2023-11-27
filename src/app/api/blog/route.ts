@@ -27,7 +27,7 @@ export const GET = async (req: Request, res: NextResponse) => {
 // 投稿
 export const POST = async (req: Request, res: NextResponse) => {
 	try {
-		const { title, overview, description } = await req.json();
+		const { title, overview, description, tag } = await req.json();
 		await main();
 		const post = await prisma.post.create({
 			data: { title, description, overview },

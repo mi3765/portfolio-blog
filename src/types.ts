@@ -4,6 +4,7 @@ export type PostType = {
 	description: string;
 	overview: string;
 	date: Date;
+	tag: string[];
 };
 
 export type PortfolioType = {
@@ -12,4 +13,10 @@ export type PortfolioType = {
 	description: string;
 	overview: string;
 	date: Date;
+	tag: string[];
+};
+
+export type TagType = {
+	id: string;
+	text: string;
 };

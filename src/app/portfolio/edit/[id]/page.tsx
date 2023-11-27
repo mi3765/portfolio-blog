@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import Tag from "@/app/components/Tag";
+import Header from "@/app/components/Header";
 
 const editPortfolio = async (
 	// undefinedの可能性
@@ -102,8 +104,9 @@ const EditPortfolio = ({ params }: { params: { id: number } }) => {
 
 	return (
 		<>
+			<Header />
 			<Toaster />
-			<div className="w-full h-[100vh] m-auto flex bg-orange-100">
+			<div className="w-full h-full m-auto flex bg-orange-100 py-10">
 				<div className="flex flex-col justify-center items-center m-auto">
 					<div className="bg-white rounded-md my-10">
 						<p className="text-2xl text-orange-500 font-bold p-3">
@@ -117,6 +120,9 @@ const EditPortfolio = ({ params }: { params: { id: number } }) => {
 							type="text"
 							className="rounded-md px-4 w-full py-2 my-2"
 						/>
+						<div className="rounded-md px-4 w-full py-2 my-2 border bg-white">
+							<Tag />
+						</div>
 						<ReactTextareaAutosize
 							ref={overviewRef}
 							placeholder="概要を入力"
